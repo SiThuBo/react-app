@@ -1,26 +1,22 @@
 import { useState } from "react";
-import Cart from "./components/Cart";
-import NavBar from "./components/NavBar";
+import UpdateButton from "./components/UpdateButton";
 
 const App = () => {
-  const [items, setItems] = useState(["Product1", "Product2"]);
-  const handleClear = () => {
-    setItems([]);
-  };
-  const handleDelete = () => {
-    console.log("Delete current item");
+  const [game, setGame] = useState({
+    id: 1,
+    player: {
+      name: "John",
+    },
+  });
+
+  const handleClick = () => {
+    setGame({ ...game, player: { ...game.player, name: "Bob" } });
+    console.log(game);
   };
   return (
-    <>
-      <NavBar itemCount={items.length} />
-      <Cart
-        items={items}
-        onClear={handleClear}
-        onDelete={(itemFromCart) =>
-          setItems(items.filter((item) => item != itemFromCart))
-        }
-      />
-    </>
+    <div>
+      <UpdateButton onUpdate={handleClick} />
+    </div>
   );
 };
 
