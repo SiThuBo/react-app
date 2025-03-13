@@ -1,20 +1,25 @@
 import { useState } from "react";
-import Alert from "./components/Alert";
-import Button from "./components/Button";
-import Like from "./components/Like";
+import Cart from "./components/Cart";
+import NavBar from "./components/NavBar";
 
 const App = () => {
-  const [alertVisible, setAlertVisibility] = useState(false);
+  const [items, setItems] = useState(["Product1", "Product2"]);
+  const handleClear = () => {
+    setItems([]);
+  };
+  const handleDelete = () => {
+    console.log("Delete current item");
+  };
   return (
     <>
-      {alertVisible && (
-        <Alert onClose={() => setAlertVisibility(false)}>My alert!</Alert>
-      )}
-      <Button color="secondary" onClick={() => setAlertVisibility(true)}>
-        Click Me
-      </Button>
-      <br />
-      <Like onClick={() => console.log("clicked")} />
+      <NavBar itemCount={items.length} />
+      <Cart
+        items={items}
+        onClear={handleClear}
+        onDelete={(itemFromCart) =>
+          setItems(items.filter((item) => item != itemFromCart))
+        }
+      />
     </>
   );
 };
