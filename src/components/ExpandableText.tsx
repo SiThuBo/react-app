@@ -1,0 +1,23 @@
+import { useState } from "react";
+
+interface Props {
+  children: string;
+  maxChar?: number;
+}
+
+const ExpandableText = ({ children, maxChar = 100 }: Props) => {
+  const [isExpended, setExpended] = useState(false);
+
+  if (children.length <= maxChar) return <div>{children}</div>;
+  const text = isExpended ? children : children.substring(0, maxChar);
+  return (
+    <>
+      <p>
+        {text} ...
+        <button onClick={() => setExpended(!isExpended)}>{isExpended ? "Less" : "More"}</button>
+      </p>
+    </>
+  );
+};
+
+export default ExpandableText;
